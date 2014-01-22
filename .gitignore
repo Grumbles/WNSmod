@@ -1,0 +1,12 @@
+# Private user data
+user.dat
+
+# Log files
+*.log
+
+# OS and editor files
+*~
+.DS_Store*
+._*
+.Spotlight-V100
+.Trashes
