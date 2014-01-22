@@ -51,7 +51,7 @@ def check_submission(submission):
     else:
         print("Rejected submission: " + submission.title +\
               " by user " + submission.author.name)
-        submission.reject()
+        submission.remove()
         send_rejection_letter(submission.author)
 
 def send_rejection_letter(author):
