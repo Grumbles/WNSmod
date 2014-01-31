@@ -12,16 +12,24 @@ Made possible with PRAW, the Python Reddit API Wrapper.
 """
 
 import time
-
+import re
 import praw
 
 user_agent = '/r/WordsnShit Automoderator v3.14 by /u/Garythekrampus'
 r = praw.Reddit(user_agent=user_agent)
+unlink = re.compile('\\[(.*)\\]\\((.*)\\)')
 
 approved_phrases = ["I don't know how I feel about carjackers.",\
                     "I can't believe how tall giraffes really are!",\
                     u"Do you have Die Hard\u2122 on Blu-Ray?",\
                     "Just give me two big ones, please.", ""]
+
+def strip_links(post):
+    m = unlink.search(post)
+    if m:
+        return strip_links(post.replace(m.group(), m.group(1)))
+    else:
+        return post
 
 def check_item(item):
     if isinstance(item, praw.objects.Comment):
@@ -32,7 +40,7 @@ def check_item(item):
         print("I found something weird! " + str(item))
     
 def check_comment(comment):
-    if comment.body.strip() in approved_phrases:
+    if strip_links(comment.body.strip()) in approved_phrases:
         print("Approved comment: " + comment.body +\
               " by user " + comment.author.name)
         comment.approve()
@@ -43,7 +51,7 @@ def check_comment(comment):
         send_rejection_letter(comment.author)
 
 def check_submission(submission):
-    if submission.selftext.strip() in approved_phrases\
+    if strip_links(submission.selftext.strip()) in approved_phrases\
        and submission.title in approved_phrases:
         print("Approved submission: " + submission.title +\
               " by user " + submission.author.name)
