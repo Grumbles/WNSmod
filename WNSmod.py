@@ -17,7 +17,7 @@ import praw
 
 user_agent = '/r/WordsnShit Automoderator v3.14 by /u/Garythekrampus'
 r = praw.Reddit(user_agent=user_agent)
-unlink = re.compile('\\[(.*)\\]\\((.*)\\)')
+unlink = re.compile('\\[([^\\]]*)\\]\\(([^\\)]*)\\)')
 
 approved_phrases = ["I don't know how I feel about carjackers.",\
                     "I can't believe how tall giraffes really are!",\
