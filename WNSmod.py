@@ -22,7 +22,8 @@ unlink = re.compile('\\[([^\\]]*)\\]\\(([^\\)]*)\\)')
 approved_phrases = ["I don't know how I feel about carjackers.",\
                     "I can't believe how tall giraffes really are!",\
                     u"Do you have Die Hard\u2122 on Blu-Ray?",\
-                    "Just give me two big ones, please.", ""]
+                    "Just give me two big ones, please.",\
+                    "Violators will be removed.", ""]
 
 def strip_links(post):
     m = unlink.search(post)
